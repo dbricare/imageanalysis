@@ -1,11 +1,16 @@
 """
-This script includes a multiprocess routine that decreases runtime by half by running the blob detection in parallel (2 parallel processes, 1 for each core in the macbook). 
+This script includes a multiprocess routine that decreases runtime by half by running the 
+blob detection in parallel (2 parallel processes, 1 for each core in the macbook). 
 
-Unfortunately the python CPU Pool.map function only allows passing one argument to each process, so the program had to be divided up in an awkward manner. It will be an issue if there are an odd number of list elements in each mapped function call.
+Unfortunately the python CPU Pool.map function only allows passing one argument to each 
+process, so the program had to be divided up in an awkward manner. It will be an issue if 
+there are an odd number of list elements in each mapped function call.
 
-It is possible to get around this using partial functions but I'm still learning how that works.
+It is possible to get around this using partial functions but I'm still learning how that 
+works.
 
-Running this on the macbook there is a decreases for single process to two processes of 990.4 seconds to 509.5 seconds.
+Running this on the macbook there is a decreases for single process to two processes of 
+990.4 seconds to 509.5 seconds.
 """
 
 
