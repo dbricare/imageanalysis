@@ -99,7 +99,7 @@ def temblob(image,ind):
 
 def plotresults(agdia, audia):
 
-	plt.ion()
+	plt.ioff()
 
 	plt.rc('font', size='18')
 
@@ -113,7 +113,9 @@ def plotresults(agdia, audia):
 		a.set_title(title)
 		_, _, _ = a.hist(sample, bins=bins, color=c)
 
-
+	plt.savefig('AgNP-AuNP.png', dpi=150)
+	plt.show()
+	
 #--------------------------------------------------------------------------------------
 
 def statresults(agdia, audia):
@@ -126,29 +128,31 @@ def statresults(agdia, audia):
 	dfinal['Mode Diameter (nm)'] = np.round([mode(audia.tolist())[0],
 	mode(agdia.tolist())[0]],1)
 	
+	dfinal.to_excel('AgNP-AuNP.xlsx')
+	
 	return dfinal
 
 #--------------------------------------------------------------------------------------
     
 if __name__ == '__main__':
 
-	# Select directory where files are stored
+# Select directory where files are stored
 	rdir = '/Volumes/TRANSFER/TEM/2015-10-15 - AuNP and AgNP/'
 	files = os.listdir(rdir)
 
 
-	# Sort out non images '*.tif'
+# Sort out non images '*.tif'
 	srtf = [f for f in files if '.tif' in f]
 
 
-	# Not all files are useful due to shifting magnification scales, must manually input
+# Not all files are useful due to shifting magnification scales, must manually input
 	manf = ['AgNP-01.tif','AgNP-02.tif','AgNP-03.tif','AgNP-04.tif','AgNP-05.tif']
 	manf.extend(['AgNP-06.tif','AgNP-07.tif','AgNP-11.tif','AgNP-12.tif'])
 	manf.extend(['AuNP-02.tif','AuNP-03.tif','AuNP-05.tif','AuNP-06.tif','AuNP-07.tif'])
 	manf.extend(['AuNP-08.tif','AuNP-09.tif','AuNP-10.tif'])
 
 
-	# Check all files are input correctly to prevent errors during runtime
+# Check all files are input correctly to prevent errors during runtime
 # 	presnt = all(f in srtf for f in manf)
 # 	print('Any typos in manual input file names:', str(not presnt))
 # 	typo = all('Au' in s or 'Ag' in s for s in manf)
@@ -167,7 +171,7 @@ if __name__ == '__main__':
 	iterdata = [(i,j) for i,j in zip(images,inds)]
 
 
-# Two process version, pass filename and corresponding NP indicator
+# Two process version, pass image data and corresponding NP indicator as tuple
 	with mp.Pool(processes=2) as pool:
 		reslist = pool.starmap(temblob, iterdata, 1)
 	pool.close()
