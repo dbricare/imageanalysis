@@ -78,8 +78,8 @@ def temblob(image,ind):
 		kwargs['threshold'] = 0.01
 		kwargs['overlap'] = 0.4
 		kwargs['min_sigma'] = 18
-		kwargs['max_sigma'] = 30
-		kwargs['num_sigma'] = 12
+		kwargs['max_sigma'] = 23
+		kwargs['num_sigma'] = 5
 		calib = 200/(777-23)
 		
 	else:
@@ -174,8 +174,7 @@ if __name__ == '__main__':
 # Two process version, pass image data and corresponding NP indicator as tuple
 	with mp.Pool(processes=2) as pool:
 		reslist = pool.starmap(temblob, iterdata, 1)
-	pool.close()
-	pool.join()
+
 
 # Serial or single process version
 # 	agres = list(map(agtemblob, agimages))
