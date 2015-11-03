@@ -1,3 +1,3 @@
-# image_analysis
+# Image analysis
 
-Testing image analysis procedures written in ipython notebooks.
+Tools for analyzing images. Analysis is performed in ipython (jupyter) notebooks.
